@@ -1,0 +1,31 @@
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.pd15 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.center-pagination {
+  text-align: center;
+  margin-top: 10px;
+}
+.pd-bt-10 {
+  padding-bottom: 10px;
+}
+.mg-tp-20 {
+  margin-top: 20px;
+}
+.mg-tp-30 {
+  margin-top: 30px;
+}
+.swiper-button-next, .swiper-button-prev {
+  height: 20px!important;
+}
+.align-center {
+  text-align: center;
+}
+
+
