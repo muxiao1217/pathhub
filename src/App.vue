@@ -47,6 +47,7 @@ export default {
   }
   .foot-container {
     padding: 0;
+    background-color: #ECEBEB;
   }
   .main {
     padding: 0;

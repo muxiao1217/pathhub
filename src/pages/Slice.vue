@@ -4,18 +4,18 @@
       <el-collapse  :value="collapseActive" class="search-container">
         <el-collapse-item title="添加搜索条件" name="search" class="pd15">
           <div class="search-body">
-            <el-form :inline="false" label-position="left" label-width="80px" :model="formLabelAlign">
-              <el-form-item label="性别">
-                <el-select v-model="filterParams.gender" placeholder="请选择">
-                  <el-option
-                    v-for="item in sexOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
+            <tag-selection title="系统分类" :options="sysOptions" v-model="filterParams.sysType"></tag-selection>
+            <tag-selection title="切片分类" :options="sliceOptions" v-model="filterParams.digitalSlideType"></tag-selection>
+            <tag-selection title="染色类型" :options="dyingOptions" v-model="filterParams.dyingType"></tag-selection>
+            <tag-selection title="部位分类" :options="organOptions" v-model="filterParams.position"></tag-selection>
+            <el-form :inline="true" label-position="left" :model="formLabelAlign" class="mg-tp-20">
+              <el-form-item label="性别:">
+                <el-checkbox-group v-model="genderList" @change="handleSexChange" class="sex-checkbox">
+                  <el-checkbox label="1">男</el-checkbox>
+                  <el-checkbox label="2">女</el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
-              <el-form-item label="年龄范围">
+              <el-form-item label="年龄范围:" class="mg-left-20">
                 <el-select v-model="ageRange" placeholder="请选择" @change="handleAgeChange">
                   <el-option
                     v-for="item in ageOptions"
@@ -25,8 +25,7 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <tag-selection title="切片分类" :options="tagOptions" v-model="filterParams.digitalSlideType" style="margin-bottom: 10px"></tag-selection>
-              <el-form-item>
+              <el-form-item class="mg-left-20">
                 <el-button type="primary" @click="onSubmit">搜索</el-button>
               </el-form-item>
             </el-form>
@@ -85,18 +84,24 @@ export default {
         'pathologyCaseId': '',
         'keyWords': '',
         'originPathologyNo': '',
+        'sysType': '',
         'startPage': 0,
         'pageSize': 12,
         'sort': '',
         'gender': '',
         'tags': '',
-        'digitalSlideType': ''
+        'digitalSlideType': '',
+        'dyingType': '',
+        'position': ''
       },
       filterParams: {
         'minAge': '',
         'maxAge': '',
         'gender': '',
-        'digitalSlideType': ''
+        'digitalSlideType': '',
+        'pathologyClassification': '',
+        'dyingType': '',
+        'position': ''
       },
       total: 0,
       formLabelAlign: {
@@ -104,7 +109,7 @@ export default {
         region: '',
         type: ''
       },
-      tagOptions: [{
+      sliceOptions: [{
         selected: false,
         value: 'BIOPSY',
         label: '活体组织切片'
@@ -121,16 +126,152 @@ export default {
         value: 'OTHER',
         label: '其他'
       }],
-      sexOptions: [{
-        value: '',
-        label: '不限'
-      }, {
-        value: 1,
-        label: '男'
-      }, {
-        value: 2,
-        label: '女'
-      }],
+      dyingOptions: [
+        {
+          selected: false,
+          value: 'HE',
+          label: 'HE'
+        }, {
+          selected: false,
+          value: 'IHC',
+          label: 'IHC'
+        }, {
+          selected: false,
+          value: 'SPECIAL_DYING',
+          label: '特殊染色'
+        }
+      ],
+      organOptions: [
+        // {
+        //   selected: false,
+        //   value: '宫颈',
+        //   label: '宫颈'
+        // },
+        {
+          selected: false,
+          value: '子宫',
+          label: '子宫'
+        }, {
+          selected: false,
+          value: '卵巢',
+          label: '卵巢'
+        },
+        // {
+        //   selected: false,
+        //   value: '胎盘',
+        //   label: '胎盘'
+        // },
+        // {
+        //   selected: false,
+        //   value: '宫颈细胞学',
+        //   label: '宫颈细胞学'
+        // },
+        {
+          selected: false,
+          value: '乳腺',
+          label: '乳腺'
+        },
+        {
+          selected: false,
+          value: '皮肤',
+          label: '皮肤'
+        },
+        {
+          selected: false,
+          value: '食管',
+          label: '食管'
+        },
+        {
+          selected: false,
+          value: '肝脏',
+          label: '肝脏'
+        },
+        // {
+        //   selected: false,
+        //   value: ' 耳',
+        //   label: ' 耳'
+        // },
+        // {
+        //   selected: false,
+        //   value: ' 涎腺',
+        //   label: ' 涎腺'
+        // },
+        {
+          selected: false,
+          value: ' 颈部',
+          label: ' 颈部'
+        },
+        // {
+        //   selected: false,
+        //   value: '软组织',
+        //   label: '软组织'
+        // },
+        {
+          selected: false,
+          value: '盆腔',
+          label: '盆腔'
+        }, {
+          selected: false,
+          value: '肺',
+          label: '肺'
+        }
+      ],
+      sysOptions: [
+        {
+          selected: false,
+          value: '女性生殖系统',
+          label: '女性生殖系统'
+        }, {
+          selected: false,
+          value: '消化系统',
+          label: '消化系统'
+        }, {
+          selected: false,
+          value: '头颈部',
+          label: '头颈部'
+        }, {
+          selected: false,
+          value: '乳腺',
+          label: '乳腺'
+        }, {
+          selected: false,
+          value: '皮肤',
+          label: '皮肤'
+        }, {
+          selected: false,
+          value: '软组织',
+          label: '软组织'
+        }, {
+          selected: false,
+          value: '男性生殖系统',
+          label: '男性生殖系统'
+        }, {
+          selected: false,
+          value: '泌尿系统',
+          label: '泌尿系统'
+        }, {
+          selected: false,
+          value: '内分泌系统',
+          label: '内分泌系统'
+        }, {
+          selected: false,
+          value: ' 腹腔盆腔与腹膜后 ',
+          label: ' 腹腔盆腔与腹膜后 '
+        }, {
+          selected: false,
+          value: '胸部',
+          label: '胸部'
+        }, {
+          selected: false,
+          value: '淋巴造血系统',
+          label: '淋巴造血系统'
+        }, {
+          selected: false,
+          value: '细胞学',
+          label: '细胞学'
+        }
+      ],
+      genderList: [],
       ageOptions: [{
         value: 'noLimit',
         label: '不限'
@@ -210,11 +351,21 @@ export default {
           this.filterParams.maxAge = ''
       }
     },
+    handleSexChange (value) {
+      if (value.length === 0 || value.length === 2) {
+        this.filterParams.gender = ''
+      } else {
+        this.filterParams.gender = value[0]
+      }
+    },
     onSubmit () {
       this.digitalSlideCondition.maxAge = this.filterParams.maxAge
       this.digitalSlideCondition.minAge = this.filterParams.minAge
       this.digitalSlideCondition.gender = this.filterParams.gender
       this.digitalSlideCondition.digitalSlideType = this.filterParams.digitalSlideType
+      this.digitalSlideCondition.dyingType = this.filterParams.dyingType
+      this.digitalSlideCondition.sysType = this.filterParams.sysType
+      this.digitalSlideCondition.position = this.filterParams.position
       this.digitalSlideCondition.startPage = 0
       this.getSlides()
     }

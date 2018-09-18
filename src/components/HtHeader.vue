@@ -4,12 +4,13 @@
         <el-col :span="24">
           <div class="header">
             <div class="header-body">
-              <div class="logo float-left">
-                <img src="@/assets/pathhub.png" alt="">
-                <!--<div class="logo-title"><span>衡道医疗</span></div>-->
-              </div>
+              <router-link to="/">
+                <div class="logo float-left" @click="activateIndex">
+                  <img src="@/assets/pathhub.png" alt="">
+                </div>
+              </router-link>
               <div class="float-right">
-                <el-menu  class="el-menu-demo no-line" mode="horizontal" :router="router" background-color="#187fc4" text-color="#fff" active-text-color="#fff">
+                <el-menu  class="el-menu-demo no-line" mode="horizontal" :router="router" background-color="#187fc4" text-color="#fff" active-text-color="#fff" :default-active="activeTab">
                   <el-menu-item index="/" class="no-line">病例</el-menu-item>
                   <el-menu-item index="/slice" class="no-line">切片</el-menu-item>
                   <el-menu-item index="/annotation" class="no-line">标注</el-menu-item>
@@ -27,7 +28,36 @@ export default {
   name: 'htHeader',
   data () {
     return {
-      router: true
+      router: true,
+      activeTab: ''
+    }
+  },
+  created () {
+    let route = this.$route.path.split('/')
+    if (route[1] === '' || route[1] === 'diseaseDetail') {
+      this.activeTab = '/'
+    } else if (route[1] === 'slice' || route[1] === 'sliceDetail') {
+      this.activeTab = '/slice'
+    } else if (route[1] === 'annotation' || route[1] === 'annotationDetail') {
+      this.activeTab = '/annotation'
+    }
+  },
+  watch: {
+    '$route' () {
+      let route = this.$route.path.split('/')
+      if (route[1] === '' || route[1] === 'diseaseDetail') {
+        this.activeTab = '/'
+      } else if (route[1] === 'slice' || route[1] === 'sliceDetail') {
+        this.activeTab = '/slice'
+      } else if (route[1] === 'annotation' || route[1] === 'annotationDetail') {
+        this.activeTab = '/annotation'
+      }
+    }
+  },
+  methods: {
+    activateIndex () {
+      // this.$router.history.go()
+      // console.log('/' + this.$route.path.split('/')[1])
     }
   }
 }

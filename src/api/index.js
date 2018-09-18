@@ -94,13 +94,13 @@ export default {
     return 'http://test.hengdaomed.com/signature'
   },
   getHEReaderHost: function () {
-    return 'http://test.hengdaomed.com:32000/wsi'
+    return 'https://test.hengdaomed.com/wsi'
     // return 'http://192.168.1.188:9999/wsi'
   },
   getHEReaderURL: function (url) {
     return this.getHEReaderHost() + url
   },
   getBaseURL: function (url) {
-    return 'https://test.hengdaomed.com/pathhub/' + url
+    return 'https://test.hengdaomed.com/pathhub-end/' + url
   }
 }

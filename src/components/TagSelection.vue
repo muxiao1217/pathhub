@@ -20,12 +20,18 @@ export default {
   },
   methods: {
     selectOneItem (item, options) {
-      for (let i = 0; i < options.length; i++) {
-        options[i].selected = false
+      if (!item.selected) {
+        for (let i = 0; i < options.length; i++) {
+          options[i].selected = false
+        }
+        item.selected = true
+        this.$emit('input', item.value)
+        this.$emit('change', item.value)
+      } else {
+        item.selected = false
+        this.$emit('input', '')
+        this.$emit('change', '')
       }
-      item.selected = true
-      this.$emit('input', item.value)
-      this.$emit('change', item.value)
     }
   }
 }
@@ -36,8 +42,10 @@ export default {
     display: inline-block;
     font-size: 14px;
     color: #606266;
-    line-height: 40px;
     padding: 0 12px 0 0;
+    position: absolute;
+    left: 0px;
+    top: 20px;
   }
   .selection-content {
     display: inline-block;
@@ -50,6 +58,7 @@ export default {
     padding: 0 12px 0 12px;
     cursor: pointer;
     margin-right: 30px;
+    margin-bottom: 10px;
   }
   .selected {
     background: #187fc4;
@@ -58,6 +67,11 @@ export default {
     /* font-style: italic; */
     font-weight: 600;
     border-radius: 10px;
+  }
+  .selection-root {
+    position: relative;
+    padding: 20px 75px 10px 70px;
+    border-bottom: 1px solid #eee;
   }
 
 </style>

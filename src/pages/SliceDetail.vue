@@ -49,14 +49,14 @@
           <swiper :options="swiperOption">
             <swiper-slide v-for="item in siblingsDigitalSlides" :key="item.id">
               <div class="slice">
-                <!--<router-link :to="/sliceDetail/+item.id">-->
+                <router-link :to="/sliceDetail/+item.id">
                   <el-card shadow="hover">
-                    <div @click="reload(item.id)">
+                    <div>
                       <div :style = "{backgroundImage:'url(http://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id+')', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', width: '100%', height: '200px'}"></div>
                       <div class="slice-id">编号{{item.id}}</div>
                     </div>
                   </el-card>
-                <!--</router-link>-->
+                </router-link>
               </div>
             </swiper-slide>
             <div class="swiper-button-prev" slot="button-prev"></div>
@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     initDocumentEvents: function () {
-      document.addEventListener('navigator-init', this.drawAnnotationNavigator)
+      // document.addEventListener('navigator-init', this.drawAnnotationNavigator)
       this.handleDocumentKeyEvent()
     },
     handleDocumentKeyEvent: function () {
@@ -514,24 +514,11 @@ export default {
       let realX = w1 * (point.x - realOffsetX)
       let realY = w2 * (point.y - realOffsetY)
       return [realOffsetX, realOffsetY, w1, w2, realX, realY]
-    },
-    reload: function (id) {
-      console.log('route change')
-      // this.id = this.$route.params.id
-      this.$router.push({ path: `/sliceDetail/${id}` })
     }
-
   },
   watch: {
-    $route: function (val) {
-      // console.log('route change2')
-      // this.id = this.$route.params.id
-      // this.getSize()
-      // this.getSiblingsSlides()
-      // this.getDigitalSlide()
-      // this.getAnnotations()
-      // this.content_height = window.innerHeight - 80
-      // this.initDocumentEvents()
+    '$route': function (to, from) {
+      this.$router.history.go()
     }
   }
 }

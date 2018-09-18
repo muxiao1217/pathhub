@@ -21,11 +21,17 @@
 .mg-tp-30 {
   margin-top: 30px;
 }
+.mg-left-20 {
+  margin-left: 20px;
+}
 .swiper-button-next, .swiper-button-prev {
   height: 20px!important;
 }
 .align-center {
   text-align: center;
+}
+.el-card__body {
+  padding: 25px!important;
 }
 
 
