@@ -11,7 +11,7 @@
                   <el-card shadow="hover">
                     <div>
                       <div style="width: 100%; height: 200px;">
-                        <img :src="item.previewImage.filepath" alt="" style="width: 100%; height: 200px;">
+                        <img :src="'https://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id" alt="" style="width: 100%; height: 200px;">
                       </div>
                       <div class="slice-id">编号{{item.id}}</div>
                     </div>

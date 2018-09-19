@@ -79,7 +79,7 @@
               <swiper-slide class="swiperTest" v-for="item in scope.row.digitalSlides" :key="item.id">
                 <router-link :to="/sliceDetail/+item.id">
                   <!--<div class="swiperTest1" :style = "{backgroundImage:'url('+ item.previewImage.filepath + ')', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}">-->
-                  <div class="swiperTest1" :style = "{backgroundImage:'url(http://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id+')', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}">
+                  <div class="swiperTest1" :style = "{backgroundImage:'url(https://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id+')', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}">
                   </div>
                 </router-link>
               </swiper-slide>
@@ -284,6 +284,11 @@ export default {
         },
         {
           selected: false,
+          value: '肠道',
+          label: '肠道'
+        },
+        {
+          selected: false,
           value: '肝脏',
           label: '肝脏'
         },
@@ -389,21 +394,21 @@ export default {
           this.total = this.pathologyCases.count
         }
       })
-    },
-    getClassification () {
-      this.$api.get(this.$api.getBaseURL('v1/pathology-classifications'), null, null, r => {
-        if (r.code === 200) {
-          console.log(r.data)
-          for (let i = 0; i < r.data.length; i++) {
-            let option = {}
-            option.selected = false
-            option.value = r.data[i]
-            option.label = r.data[i]
-            this.tagOptions.push(option)
-          }
-        }
-      })
     }
+    // getClassification () {
+    //   this.$api.get(this.$api.getBaseURL('v1/pathology-classifications'), null, null, r => {
+    //     if (r.code === 200) {
+    //       console.log(r.data)
+    //       for (let i = 0; i < r.data.length; i++) {
+    //         let option = {}
+    //         option.selected = false
+    //         option.value = r.data[i]
+    //         option.label = r.data[i]
+    //         this.tagOptions.push(option)
+    //       }
+    //     }
+    //   })
+    // }
   }
 }
 </script>
@@ -423,7 +428,6 @@ export default {
   }
   .thisSwiper {
     height: 100px;
-    margin-top: 20px;
     width: 200px;
   }
   .swiperTest {

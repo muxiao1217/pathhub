@@ -43,7 +43,7 @@
                     <div>
                       <div style="width: 100%; height: 200px;">
                         <!--<img :src="item.previewImage.filepath" alt="" style="width: 100%; height: 200px;">-->
-                        <img :src="'http://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id" style="width: 100%; height: 200px;">
+                        <img :src="'https://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id" style="width: 100%; height: 200px;">
                       </div>
                       <div class="slice-id">编号{{item.id}}</div>
                     </div>
@@ -180,6 +180,11 @@ export default {
           selected: false,
           value: '食管',
           label: '食管'
+        },
+        {
+          selected: false,
+          value: '肠道',
+          label: '肠道'
         },
         {
           selected: false,

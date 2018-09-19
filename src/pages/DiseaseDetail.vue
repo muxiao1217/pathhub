@@ -74,7 +74,7 @@
                 <router-link :to="/sliceDetail/+item.id">
                   <el-card shadow="hover">
                     <div>
-                      <div :style = "{backgroundImage:'url(http://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id+')', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', width: '100%', height: '200px'}"></div>
+                      <div :style = "{backgroundImage:'url(https://test.hengdaomed.com/wsi/v1/kfb-thumnail/'+item.id+')', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', width: '100%', height: '200px'}"></div>
                       <div class="slice-id">编号{{item.id}}</div>
                     </div>
                   </el-card>
