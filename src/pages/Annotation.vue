@@ -32,18 +32,18 @@
         }"
         @row-click="jumpToDetail">
         <el-table-column
+          prop="id"
           label="编号"
           min-width="180"
           align="center">
-          <template slot-scope="scope">
-            <router-link :to="/AnnotationDetail/+scope.row.id" style="color: #16BBB5">{{ scope.row.id }}</router-link>
-          </template>
         </el-table-column>
         <el-table-column
-          prop="name"
           label="数据集名称"
           min-width="180"
           align="center">
+          <template slot-scope="scope">
+            <router-link :to="/AnnotationDetail/+scope.row.id" style="color: #16BBB5">{{ scope.row.name }}</router-link>
+          </template>
         </el-table-column>
         <el-table-column
           prop="age"

@@ -17,13 +17,15 @@ export default {
 <style scoped>
   .footer {
     height: 100%;
-    background-color: #ECEBEB;
+    /*background-color: #ECEBEB;*/
+    background-color: #6B6A6A;
     border-top: 1px solid #DEDDDD;
   }
   .license {
     text-align: center;
     margin-top: 20px;
-    color: #909399;
+    /*color: #909399;*/
+    color: #fff;
   }
 
 </style>
