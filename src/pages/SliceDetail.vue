@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <div class="case-root">
     <div class="fix">

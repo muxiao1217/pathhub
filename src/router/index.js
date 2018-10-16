@@ -6,6 +6,7 @@ import slice from '@/pages/Slice'
 import diseaseDetail from '@/pages/DiseaseDetail'
 import sliceDetail from '@/pages/sliceDetail'
 import annotationDetail from '@/pages/AnnotationDetail'
+import sliceViewer from '@/pages/SliceViewer'
 
 Vue.use(Router)
 
@@ -35,6 +36,10 @@ export default new Router({
       path: '/annotationDetail/:id',
       name: 'annotationDetail',
       component: annotationDetail
+    }, {
+      path: '/sliceViewer',
+      name: 'sliceViewer',
+      component: sliceViewer
     }
   ],
   scrollBehavior (to, from, savedPosition) {

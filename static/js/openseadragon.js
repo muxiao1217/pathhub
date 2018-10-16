@@ -4186,6 +4186,7 @@ function OpenSeadragon(options) {
   /**
    * Detect available mouse wheel event name.
    */
+  /* eslint-disable */
   $.MouseTracker.wheelEventName = ($.Browser.vendor == $.BROWSERS.IE && $.Browser.version > 8) ||
   ('onwheel' in document.createElement('div')) ? 'wheel' : // Modern browsers support 'wheel'
     document.onmousewheel !== undefined ? 'mousewheel' :                     // Webkit and IE support at least 'mousewheel'
