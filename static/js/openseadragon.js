@@ -1,3 +1,4 @@
+/* eslint-disable */
 //! openseadragon 2.3.1
 //! Built on 2017-09-19
 //! Git commit: v2.3.1-0-08414cd
@@ -7187,11 +7188,9 @@ function OpenSeadragon(options) {
    *
    **/
   $.Viewer = function (options) {
-
     var args = arguments,
       _this = this,
       i;
-
 
     //backward compatibility for positional args while prefering more
     //idiomatic javascript options object as the only argument

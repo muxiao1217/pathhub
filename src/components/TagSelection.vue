@@ -2,9 +2,11 @@
   <div class="selection-root">
     <div class="selection-label">{{title}}:</div>
     <div class="selection-content">
+      <!-- eslint-disable -->
       <div v-for="item in options" class="items" :class="{selected: item.selected}" @click="selectOneItem(item, options)">
         {{item.label}}
       </div>
+      <!-- eslint-enable -->
     </div>
   </div>
 </template>

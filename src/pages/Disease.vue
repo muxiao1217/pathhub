@@ -326,7 +326,6 @@ export default {
   },
   created () {
     this.loadPathologyCases()
-    this.getClassification()
   },
   methods: {
     // jumpToDetail () {

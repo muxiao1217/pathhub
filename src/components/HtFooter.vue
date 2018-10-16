@@ -2,7 +2,7 @@
     <div class="footer">
       <el-row>
         <el-col>
-          <el-col :span="24"><div class="license">COPYRIGHT &copy 2016-2018 上海衡道医学病理诊断中心 ALL RIGHTS RESERVED</div></el-col>
+          <el-col :span="24"><div class="license">COPYRIGHT &copy; 2016-2018 上海衡道医学病理诊断中心 ALL RIGHTS RESERVED</div></el-col>
         </el-col>
       </el-row>
     </div>

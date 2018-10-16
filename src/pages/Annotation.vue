@@ -1,7 +1,7 @@
 <template>
   <div class="annotation-root">
     <div class="fix">
-      <el-collapse  :value="collapseActive" @change="" class="search-container">
+      <el-collapse  :value="collapseActive" class="search-container">
         <el-collapse-item title="添加搜索条件" name="search" class="pd15">
           <div class="search-body">
             <el-row>

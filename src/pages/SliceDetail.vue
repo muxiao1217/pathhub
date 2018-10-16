@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="case-root">
     <div class="fix">
@@ -70,6 +71,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import SeaDragon from 'openseadragon'
 import Circle from 'circle'
 import Point from 'point'
@@ -413,6 +415,7 @@ export default {
     },
     seaDragon: function () {
       let ossTileUrl = this.$api.getHEReaderHost() + '/v1/kfb'
+      console.log(ossTileUrl, this.width, this.height)
       let timeUrl = this.$api.getHost() + '/digitalslide/kfb/tile/' + this.id
       const viewer = SeaDragon({
         id: 'pic',
@@ -558,8 +561,6 @@ export default {
   .slice-list .list-title {
     padding: 10px;
     background-color: #fafafa;
-  }
-  .slice-detail .slice-container {
   }
   .slice-content {
     margin-left: 10px;
