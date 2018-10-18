@@ -5,13 +5,14 @@
 </template>
 
 <script>
-var seadragon = require('@/assets/js/openSeadragon/openseadragon.js')
+import seadragon from 'openseadragon'
+import '@/utils/annotations/main.js'
+
 export default {
   name: 'sliceViewer',
   created () {
-    console.log(seadragon)
     setTimeout(function () {
-      seadragon.OpenSeadragon({
+      seadragon({
         id: 'pic',
         prefixUrl: '/static/',
         tileSources: [{
@@ -20,7 +21,9 @@ export default {
           width: 103887,
           height: 85775,
           tilesUrl: 'https://test.hengdaomed.com/wsi/v1/kfb'
-        }]
+        }],
+        showNavigator: true,
+        debugMode: true
       })
     })
   }

@@ -35,7 +35,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'openseadragon': resolve('/static/js/openseadragon.js'),
+      // 'openseadragon': resolve('/static/js/openseadragon.js'),
       'circle': resolve('/static/js/circle.js'),
       'point' : resolve('/static/js/point.js'),
       '@': resolve('src'),
