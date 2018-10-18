@@ -1,30 +1,12 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header class="head-container">
-        <ht-header></ht-header>
-      </el-header>
-      <el-main class="main">
-        <div class="main-body">
-          <router-view/>
-        </div>
-      </el-main>
-      <el-footer class="foot-container">
-        <ht-footer ></ht-footer>
-      </el-footer>
-    </el-container>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import htHeader from '@/components/HtHeader'
-import htFooter from '@/components/HtFooter'
 export default {
-  name: 'App',
-  components: {
-    htHeader: htHeader,
-    htFooter: htFooter
-  }
+  name: 'App'
 }
 </script>
 
