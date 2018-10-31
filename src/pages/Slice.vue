@@ -203,8 +203,8 @@ export default {
         // },
         {
           selected: false,
-          value: ' 颈部',
-          label: ' 颈部'
+          value: '头颈部',
+          label: '头颈部'
         },
         // {
         //   selected: false,
@@ -219,6 +219,10 @@ export default {
           selected: false,
           value: '肺',
           label: '肺'
+        }, {
+          selected: false,
+          value: '胃',
+          label: '胃'
         }
       ],
       sysOptions: [

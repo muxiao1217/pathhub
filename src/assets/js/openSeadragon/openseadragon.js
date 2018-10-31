@@ -7072,6 +7072,7 @@ function OpenSeadragon(options) {
 
   //Public properties
   //Allow the options object to override global defaults
+  //让参数option去覆盖openseadragon原来的默认的参数，并且让其成为viewer的参数
   $.extend(true, this, {
 
    //internal state and dom identifiers

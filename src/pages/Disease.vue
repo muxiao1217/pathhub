@@ -59,14 +59,14 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="clinicalDiagnosis"
+          prop="position"
           label="部位"
           width="180"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="pathologyClassification"
-          label="亚型"
+          prop="clinicalDiagnosis"
+          label="病理诊断"
           width="180"
           align="center">
         </el-table-column>
@@ -304,8 +304,8 @@ export default {
         // },
         {
           selected: false,
-          value: ' 颈部',
-          label: ' 颈部'
+          value: '头颈部',
+          label: '头颈部'
         },
         // {
         //   selected: false,
@@ -320,6 +320,10 @@ export default {
           selected: false,
           value: '肺',
           label: '肺'
+        }, {
+          selected: false,
+          value: '胃',
+          label: '胃'
         }
       ]
     }

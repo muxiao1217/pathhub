@@ -70,8 +70,8 @@ export default {
           this.$api.get(this.$api.getHEReaderHost() + '/v1/kfb-size/' + this.id, {}, null, r => {
             this.width = r.width
             this.height = r.height
-            let maxValue = Math.max(r.width, r.height)
-            let level = this.filepath = r.path
+            // let maxValue = Math.max(r.width, r.height)
+            // let level = this.filepath = r.path
             resolve(r)
           })
         })
@@ -81,7 +81,7 @@ export default {
     },
     seaDragon: function () {
       let ossTileUrl = this.$api.getHEReaderHost() + '/v1/kfb'
-      var viewer = seadragon({
+      seadragon({
         id: 'pic',
         prefixUrl: '/static/',
         tileSources: [{
@@ -92,7 +92,7 @@ export default {
           tilesUrl: ossTileUrl,
           updateAnnotationCanvas: this.drawAnnotationCanvas()
         }],
-        showNavigator: true,
+        showNavigator: false,
         navigatorPosition: 'BOTTOM_LEFT',
         navigatorHeight: '150px',
         navigatorWidth: '250px',
@@ -111,7 +111,7 @@ export default {
       })
     },
     drawAnnotationCanvas: function () {
-      let annotations = this.annotations
+      // let annotations = this.annotations
       let _this = this
       return (viewer) => {
         const viewport = viewer.viewport
@@ -126,7 +126,7 @@ export default {
         }
         let context = _this.annotationCanvas.getContext('2d')
         context.clearRect(0, 0, _this.annotationCanvas.width, _this.annotationCanvas.height)
-        const [realOffsetX, realOffsetY, w1, w2] = this.calculateRectOfAnnotations(bounds, context.canvas)
+        const [realOffsetX, realOffsetY, w1] = this.calculateRectOfAnnotations(bounds, context.canvas)
         this.drawAnnotationStroke(_this, realOffsetX, realOffsetY, w1, w1)
         this.drawAnnotationPoint(context, realOffsetX, realOffsetY, w1, w1, bounds)
       }

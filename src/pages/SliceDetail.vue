@@ -34,6 +34,11 @@
                 </div>
               </div>
             </div>
+            <div class="jumpToSliceDetail">
+              <router-link :to="/sliceViewer/ + id">
+                <el-button class="hdblue">浏览切片大图</el-button>
+              </router-link>
+            </div>
           </el-aside>
           <el-main class="slice-content">
             <div id="content" v-if="flag" :style="'width:90%;margin:0 auto;height:'+(content_height-60)+'px'">
@@ -71,7 +76,7 @@
 
 <script>
 /* eslint-disable */
-import SeaDragon from 'openseadragon'
+import SeaDragon from 'openseadragon_m'
 import Circle from 'circle'
 import Point from 'point'
 
@@ -595,5 +600,14 @@ export default {
     margin-top: 30px;
     padding: 10px;
     background-color: #fafafa;
+  }
+  .jumpToSliceDetail {
+    margin-top: 20px;
+  }
+  .hdblue {
+    width: 100%;
+    background-color: #187fc4;
+    color: #ffffff;
+  
   }
 </style>

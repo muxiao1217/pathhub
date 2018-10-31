@@ -7,12 +7,13 @@ import slice from '@/pages/Slice'
 import diseaseDetail from '@/pages/DiseaseDetail'
 import sliceDetail from '@/pages/sliceDetail'
 import annotationDetail from '@/pages/AnnotationDetail'
-import sliceViewer from '@/pages/SliceViewer'
+import sliceViewer from '@/pages/SliceView'
+import internalSlice from '@/pages/InternalSlice'
+import internalSliceDetail from '@/pages/InternalSliceDetail'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
@@ -43,19 +44,34 @@ export default new Router({
           path: '/annotationDetail/:id',
           name: 'annotationDetail',
           component: annotationDetail
-        }, {
-          path: '/sliceViewer',
-          name: 'sliceViewer',
-          component: sliceViewer
         }
       ]
+    }, {
+      path: '/sliceViewer/:id',
+      name: 'sliceViewer',
+      component: sliceViewer
+    }, {
+      path: '/internalSlice/:id',
+      name: 'internalSlice',
+      component: internalSlice
+    }, {
+      path: '/internalSliceDetail/:id',
+      name: 'internalSliceDetail',
+      component: internalSliceDetail
     }
   ],
+  // scrollBehavior (to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition
+  //   } else {
+  //     return { x: 0, y: 0 }
+  //   }
+  // }
+
   scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
+    return {
+      x: 0,
+      y: 0
     }
   }
 })

@@ -1,3 +1,4 @@
+/* eslint-disable */
 //! openseadragon 2.3.1
 //! Built on 2017-09-19
 //! Git commit: v2.3.1-0-08414cd
@@ -2925,7 +2926,7 @@ function OpenSeadragon( options ){
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+/* eslint-disable */
 (function($){
 
 /**
@@ -4081,6 +4082,7 @@ $.EventSource.prototype = {
     /**
      * Detect available mouse wheel event name.
      */
+    /* eslint-disable */
     $.MouseTracker.wheelEventName = ( $.Browser.vendor == $.BROWSERS.IE && $.Browser.version > 8 ) ||
                                                 ( 'onwheel' in document.createElement( 'div' ) ) ? 'wheel' : // Modern browsers support 'wheel'
                                     document.onmousewheel !== undefined ? 'mousewheel' :                     // Webkit and IE support at least 'mousewheel'
@@ -7248,6 +7250,7 @@ $.Viewer = function( options ) {
     this._lastScrollTime = $.now(); // variable used to help normalize the scroll event speed of different devices
 
     //Inherit some behaviors and properties
+    //这里是初始化viewer的events
     $.EventSource.call( this );
 
     this.addHandler( 'open-failed', function ( event ) {
@@ -7263,9 +7266,9 @@ $.Viewer = function( options ) {
         this.tileSources = [ this.xmlPath ];
     }
 
-    this.element              = this.element || document.getElementById( this.id );
+    this.element              = this.element || document.getElementById( this.id );//找到挂载的dom对象
     this.canvas               = $.makeNeutralElement( "div" );
-
+    //建dom，建立dom结构
     this.canvas.className = "openseadragon-canvas";
     (function( style ){
         style.width    = "100%";
@@ -7302,7 +7305,8 @@ $.Viewer = function( options ) {
     this.bodyHeight     = document.body.style.height;
     this.bodyOverflow   = document.body.style.overflow;
     this.docOverflow    = document.documentElement.style.overflow;
-
+    //此方法是为新生成的view添加各种原生事件，MouseTracker里的setTracking方法会绑定事件到dom上去，事件回调
+    //在下面这个参数里都写的很清楚
     this.innerTracker = new $.MouseTracker({
         element:                  this.canvas,
         startDisabled:            !this.mouseNavEnabled,
@@ -7340,7 +7344,7 @@ $.Viewer = function( options ) {
     if( this.toolbar ){
         this.toolbar = new $.ControlDock({ element: this.toolbar });
     }
-
+    //生成默认的或者样式自定义的控制按钮组
     this.bindStandardControls();
 
     THIS[ this.hash ].prevContainerSize = _getSafeElemSize( this.container );
@@ -7349,7 +7353,7 @@ $.Viewer = function( options ) {
     this.world = new $.World({
         viewer: this
     });
-
+    //world里有一个events数组，下面就是把这几个事件加到world.events数组里
     this.world.addHandler('add-item', function(event) {
         // For backwards compatibility, we maintain the source property
         _this.source = _this.world.getItemAt(0).source;
@@ -7376,6 +7380,7 @@ $.Viewer = function( options ) {
         if (_this.viewport) {
             _this.viewport._setContentBounds(_this.world.getHomeBounds(), _this.world.getContentFactor());
         }
+        console.log(event)
     });
 
     this.world.addHandler('item-index-change', function(event) {
@@ -21976,7 +21981,7 @@ $.extend( $.World.prototype, $.EventSource.prototype, /** @lends OpenSeadragon.W
         } );
     },
 
-    /**
+    /**··
      * Get the item at the specified index.
      * @param {Number} index - The item's index.
      * @returns {OpenSeadragon.TiledImage} The item at the specified index.
@@ -22287,7 +22292,7 @@ $.extend( $.World.prototype, $.EventSource.prototype, /** @lends OpenSeadragon.W
              * @property {OpenSeadragon.World} eventSource - A reference to the World which raised the event.
              * @property {?Object} userData - Arbitrary subscriber-defined object.
              */
-            this.raiseEvent('metrics-change', {});
+            this.raiseEvent('metrics-change', {x:1});
         }
     },
 
@@ -22309,3 +22314,30 @@ $.extend( $.World.prototype, $.EventSource.prototype, /** @lends OpenSeadragon.W
 }( OpenSeadragon ));
 
 //# sourceMappingURL=openseadragon.js.map
+
+//渲染过程
+//OpenSeadragon.Viewer( options ); 入口
+//绑定页面dom容器，在里面创建一个canvas this.element = this.element || document.getElementById( this.id );
+//为这个view创建并绑定各种监听事件 this.innerTracker = new $.MouseTracker({
+//创建控制按钮，比如放大，缩小等 this.bindStandardControls();
+//为view创建它的world并添加事件  this.world = new $.World
+//为view创建viewport this.viewport = new $.Viewport(
+//为view创建drawer this.drawer = new $.Drawer(
+//绑定小地图 if ( this.showNavigator){
+//进入呈现图片的入口方法 this.open( this.tileSources );
+//为view添加tiledimage _this.addTiledImage(options);
+//初始化这个tiledimage tiledImage = new $.TiledImage(
+//给world添加这个tiledimage 
+//触发world的添加事件  this.raiseEvent( 'add-item', {
+//安排更新页面 _this._updateRequestId = scheduleUpdate( _this, updateMulti );
+//为requestanimation添加回调 
+//进行一次更新 updateOnce( viewer );
+//更新world var animated = viewer.world.update() || viewportChange;
+//draw这个world viewer.world.draw();
+//draw this._items[i].draw();
+//更新viewport，实现draw this._updateViewport();
+//获得draw的区域 drawArea = drawArea.intersection(tiledImageBounds);
+//实际开始draw drawTiles(this, this.lastDrawn)
+//调用tiledimage里的draw  tiledImage._drawer.drawTile( tile, tiledImage._drawingHandler, useSketch, sketch
+//drawcanvas tile.drawCanvas(context, drawingHandler, scale, translate);
+//最后实际的draw  context.drawImage
