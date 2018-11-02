@@ -1,8 +1,5 @@
 <template>
   <div class="slice-root">
-    <div class="logo">
-      <img src="@/assets/pathhub_blue.png" alt="">
-    </div>
     <div class="fix">
       <div class="slice-list">
         <div class="list-title">切片列表</div>
@@ -10,7 +7,7 @@
           <el-row :gutter="20">
             <el-col :xs="8" :sm="6" :md="4" :lg="4" v-for="item in digitalSlides" :key="item.id">
               <div class="slice">
-                <router-link :to="/internalSliceDetail/ + item.id">
+                <router-link :to="'/internal/internalSliceDetail/' + item.id">
                   <el-card shadow="hover">
                     <div>
                       <div style="width: 100%; height: 200px;">

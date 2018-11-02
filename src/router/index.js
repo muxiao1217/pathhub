@@ -10,6 +10,8 @@ import annotationDetail from '@/pages/AnnotationDetail'
 import sliceViewer from '@/pages/SliceView'
 import internalSlice from '@/pages/InternalSlice'
 import internalSliceDetail from '@/pages/InternalSliceDetail'
+import internalLayout from '@/components/LayoutInternal'
+import login from '@/pages/InternalLogin'
 
 Vue.use(Router)
 
@@ -51,26 +53,29 @@ export default new Router({
       name: 'sliceViewer',
       component: sliceViewer
     }, {
-      path: '/internalSlice/:id',
-      name: 'internalSlice',
-      component: internalSlice
-    }, {
-      path: '/internalSliceDetail/:id',
+      path: '/internal/internalSliceDetail/:id',
       name: 'internalSliceDetail',
       component: internalSliceDetail
+    }, {
+      path: '/internal',
+      name: 'internal',
+      redirect: '/internal/internalSlice/4',
+      component: internalLayout,
+      children: [
+        {
+          path: 'internalSlice/:id',
+          name: 'internalSlice',
+          component: internalSlice
+        }
+      ]
+    }, {
+      path: '/internal/login',
+      name: 'login',
+      component: login
     }
   ],
-  // scrollBehavior (to, from, savedPosition) {
-  //   if (savedPosition) {
-  //     return savedPosition
-  //   } else {
-  //     return { x: 0, y: 0 }
-  //   }
-  // }
-
   scrollBehavior (to, from, savedPosition) {
     return {
-      x: 0,
       y: 0
     }
   }

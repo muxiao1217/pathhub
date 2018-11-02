@@ -10,6 +10,8 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import api from './api/index.js'
 import '../theme/index.css'
+import store from '@/store'
+// import '@/permission/permission.js'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -20,6 +22,7 @@ Vue.prototype.$api = api
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
