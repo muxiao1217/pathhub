@@ -11,7 +11,8 @@ import 'swiper/dist/css/swiper.css'
 import api from './api/index.js'
 import '../theme/index.css'
 import store from '@/store'
-// import '@/permission/permission.js'
+import '@/permission/permission.js'
+import './mock' // simulation data
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

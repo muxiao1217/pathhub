@@ -16,7 +16,7 @@ const store = new Vuex.Store({
       state.token = token
     },
     SET_NAME: (state, name) => {
-      state.name = name
+      state.userName = name
     },
     SET_LOGGED: (state) => {
       state.logged = true
@@ -36,7 +36,8 @@ const store = new Vuex.Store({
     Login ({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        api.get(api.getBaseURL('v1/login'), null, {username: username, password: userInfo.password}, res => {
+        api.post(api.getBaseURL('login/login'), null, {username: username, password: userInfo.password}, res => {
+          console.log(res)
           setToken(res.token)
           commit('SET_TOKEN', res.token)
           resolve()
@@ -46,9 +47,8 @@ const store = new Vuex.Store({
 
     GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        api.get(api.getBaseURL('v1/userInfo'), null, {token: getToken()}, res => {
-          const data = res.data
-          commit('SET_NAME', data.name)
+        api.get(api.getBaseURL('user/info'), null, {token: getToken()}, res => {
+          commit('SET_NAME', res.name)
           commit('SET_LOGGED')
           resolve(res)
         }, err => {

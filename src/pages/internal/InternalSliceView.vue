@@ -263,19 +263,19 @@ export default {
     background-color: #187fc4;
   }
   #zoominbtn {
-    background: #187fc4 url('../assets/addition.png') no-repeat;
+    background: #187fc4 url('../../assets/addition.png') no-repeat;
     background-size: 100%;
   }
   #zoomoutbtn {
-    background: #187fc4 url('../assets/offline.png') no-repeat;
+    background: #187fc4 url('../../assets/offline.png') no-repeat;
     background-size: 100%;
   }
   #home {
-    background: #187fc4 url('../assets/homepage.png') no-repeat;
+    background: #187fc4 url('../../assets/homepage.png') no-repeat;
     background-size: 100%;
   }
   #full {
-    background: #187fc4 url('../assets/fullscreen.png') no-repeat;
+    background: #187fc4 url('../../assets/fullscreen.png') no-repeat;
     background-size: 100%;
   }
   .zoombyx {

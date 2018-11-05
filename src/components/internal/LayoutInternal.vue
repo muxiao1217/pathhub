@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import htHeader from '@/components/HeaderInternal'
+import htHeader from '@/components/internal/HeaderInternal'
 import htFooter from '@/components/HtFooter'
 export default {
   name: 'Layout',

@@ -8,10 +8,11 @@ import diseaseDetail from '@/pages/DiseaseDetail'
 import sliceDetail from '@/pages/sliceDetail'
 import annotationDetail from '@/pages/AnnotationDetail'
 import sliceViewer from '@/pages/SliceView'
-import internalSlice from '@/pages/InternalSlice'
-import internalSliceDetail from '@/pages/InternalSliceDetail'
-import internalLayout from '@/components/LayoutInternal'
-import login from '@/pages/InternalLogin'
+import internalSlice from '@/pages/internal/InternalSlice'
+import internalSliceView from '@/pages/internal/InternalSliceView'
+import internalLayout from '@/components/internal/LayoutInternal'
+import internalSliceDetail from '@/pages/internal/InternalSliceDetail'
+import login from '@/pages/internal/InternalLogin'
 
 Vue.use(Router)
 
@@ -53,9 +54,9 @@ export default new Router({
       name: 'sliceViewer',
       component: sliceViewer
     }, {
-      path: '/internal/internalSliceDetail/:id',
-      name: 'internalSliceDetail',
-      component: internalSliceDetail
+      path: '/internal/internalSliceView/:id',
+      name: 'internalSliceView',
+      component: internalSliceView
     }, {
       path: '/internal',
       name: 'internal',
@@ -66,6 +67,10 @@ export default new Router({
           path: 'internalSlice/:id',
           name: 'internalSlice',
           component: internalSlice
+        }, {
+          path: 'internalSliceDetail/:id',
+          name: 'internalSliceDetail',
+          component: internalSliceDetail
         }
       ]
     }, {
