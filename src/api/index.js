@@ -60,10 +60,14 @@ function apiAxios (method, headers, url, params, success, failure) {
       success(res.data)
     })
     .catch(function (err) {
-      let res = err.response
-      if (err) {
-        window.alert('api error, HTTP CODE: ' + res.status)
+      if (failure) {
+        failure(err.response)
       }
+      console.log('something is wrong')
+      // let res = err.response
+      // if (err) {
+      //   window.alert('api error, HTTP CODE: ' + res.status)
+      // }
     })
 }
 
@@ -103,4 +107,7 @@ export default {
   getBaseURL: function (url) {
     return 'https://test.hengdaomed.com/pathhub-end/' + url
   }
+  // getBaseURL: function (url) {
+  //   return 'http://192.168.2.254:8282/pathhub-end/' + url
+  // }
 }

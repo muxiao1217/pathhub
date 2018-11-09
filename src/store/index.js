@@ -18,6 +18,9 @@ const store = new Vuex.Store({
     SET_NAME: (state, name) => {
       state.userName = name
     },
+    SET_USERID: (state, userId) => {
+      state.userId = userId
+    },
     SET_LOGGED: (state) => {
       state.logged = true
     },
@@ -36,23 +39,29 @@ const store = new Vuex.Store({
     Login ({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        api.post(api.getBaseURL('login/login'), null, {username: username, password: userInfo.password}, res => {
+        api.post(api.getBaseURL('v1/login'), null, {username: username, password: userInfo.password}, res => {
           console.log(res)
-          setToken(res.token)
-          commit('SET_TOKEN', res.token)
+          setToken(res.data.token)
+          commit('SET_TOKEN', res.data.token)
           resolve()
-        }, err => { reject(err) })
+        }, err => {
+          reject(err)
+        })
       })
     },
 
     GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        api.get(api.getBaseURL('user/info'), null, {token: getToken()}, res => {
-          commit('SET_NAME', res.name)
+        api.post(api.getBaseURL('v1/token/user'), null, {token: getToken()}, res => {
+          console.log(res)
+          commit('SET_NAME', res.data.username)
+          commit('SET_USERID', res.data.id)
+          commit('SET_TOKEN', getToken())
           commit('SET_LOGGED')
           resolve(res)
         }, err => {
-          commit('SET_UNLOGGED')
+          commit('LOGOUT')
+          console.log(err)
           reject(err)
         })
       })

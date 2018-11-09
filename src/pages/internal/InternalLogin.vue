@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
 
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
         <h3 class="title">系统登陆</h3>
@@ -48,7 +48,7 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
+      if (value.length < 4) {
         callback(new Error('The password can not be less than 6 digits'))
       } else {
         callback()
@@ -101,6 +101,7 @@ export default {
             this.$router.push({ path: this.redirect || '/internal' })
           }).catch(() => {
             this.loading = false
+            this.$message.error('登录失败')
           })
         } else {
           console.log('error submit!!')

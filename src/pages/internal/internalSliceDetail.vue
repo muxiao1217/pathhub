@@ -50,54 +50,51 @@
       <div class="slice-list">
         <div class="list-title">诊断结果</div>
         <div class="list-content">
-          <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="textarea"></el-input>
-          <div style="text-align:right"> <el-button class="hdblue_con">保存</el-button></div>
-        </div>
-      </div>
-      <div class="slice-list">
-        <el-collapse accordion>
-          <div class="list-title">相关诊断结果</div>
-          <el-collapse-item>
-            <div class="list-content">
-              <template>
-                <el-table :data="tableData" stripe style="width: 100%">
-                  <el-table-column prop="name" label="诊断人员">
-                  </el-table-column>
-                  <el-table-column prop="date" label="日期">
-                  </el-table-column>
-                  <el-table-column prop="address" label="诊断结果">
-                  </el-table-column>
-                </el-table>
-              </template>
+          <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="result"></el-input>
+          <div style="text-align:right">
+            <el-button class="hdblue_con" @click="onResultSubmit">保存</el-button>
+            <el-button class="hdblue_con" @click="showResults">显示所有评论结果</el-button>
+          </div>
+          <transition name="fade">
+            <div class="comment-container" v-if="resultsShow">
+              <div class="title">用户评论</div>
+              <div v-if="!hasComments" class="noComment">暂无评论</div>
+              <div class="comment">
+                <comment v-for="item in resultTableData"
+                        :key="item.id"
+                        :author="item.username"
+                        :date="item.createTime"
+                        :content="item.diagnosis"
+                        />
+              </div>
             </div>
-          </el-collapse-item>
-        </el-collapse>
+          </transition>
+        </div>
       </div>
       <div class="slice-list">
         <div class="list-title">信息修改</div>
         <div class="list-content">
-          <el-form :label-position="left" label-width="100px">
+          <el-form label-position="left" label-width="100px" ref="form" :modle="form">
             <el-form-item label="性别">
-              <el-select placeholder="请选择性别" style="width:200px">
-                <el-option label="男" value="shanghai"></el-option>
-                <el-option label="女" value="beijing"></el-option>
+              <el-select placeholder="请选择性别" style="width:200px" v-model="form.sex">
+                <el-option label="男" value="Man"></el-option>
+                <el-option label="女" value="Female"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="年龄" prop="checkPass">
-              <el-input style="width:200px" placeholder="请输入年龄"></el-input>
+            <el-form-item label="年龄">
+              <el-input style="width:200px" placeholder="请输入年龄" v-model="form.age"></el-input>
             </el-form-item>
-            <el-form-item label="临床诊断" prop="age">
-              <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="textarea"></el-input>
+            <el-form-item label="临床诊断">
+              <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="form.clinicalDiagnosis"></el-input>
             </el-form-item>
             <el-form-item label="病理分类">
-              <el-select placeholder="请选择病理分类" style="width:200px">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
+              <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="form.pathologyClassification"></el-input>
+            </el-form-item>
+            <el-form-item label="病理诊断">
+              <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="form.pathologyDiagnosis"></el-input>
             </el-form-item>
             <el-form-item style="text-align:right">
-                <el-button type="primary">提交</el-button>
-                <el-button >重置</el-button>
+                <el-button type="primary" @click="onInfoUpdate">提交</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -134,9 +131,13 @@
 import SeaDragon from 'openseadragon_m'
 import Circle from 'circle'
 import Point from 'point'
+import comment from '@/components/internal/Comment'
 
 export default {
   name: 'sliceDetail',
+  components: {
+    comment
+  },
   data () {
     return {
       'id': this.$route.params.id,
@@ -181,12 +182,23 @@ export default {
         sex: '',
         pathologyClassification: '',
         clinicalDiagnosis: ''
-      }
+      },
+      result: '',
+      resultsShow: false,
+      resultTableData: [],
+      form: {
+        sex: '',
+        age: '',
+        clinicalDiagnosis: '',
+        pathologyClassification: '',
+        pathologyDiagnosis: ''
+      },
+      hasComments: true
     }
   },
   created: function () {
     this.getSize()
-    this.getSiblingsSlides()
+    // this.getSiblingsSlides()
     this.getDigitalSlide()
     this.getAnnotations()
     this.content_height = window.innerHeight - 80
@@ -228,8 +240,10 @@ export default {
       this.$api.get(this.$api.getBaseURL('v1/digitalslide/' + this.id), null, null, r => {
         if (r.code === 200) {
           this.slide = r.data
-          this.slideInfo = r.data.pathologyCaseDto // 添加切片信息
-          console.log(this.slideInfo)
+          this.slideInfo.age = r.data.pathologyCaseDto.age // 添加切片信息
+          this.slideInfo.sex = r.data.pathologyCaseDto.sex // 添加切片信息
+          this.slideInfo.pathologyClassification = r.data.pathologyCaseDto.pathologyClassification // 添加切片信息
+          this.slideInfo.clinicalDiagnosis = r.data.pathologyCaseDto.clinicalDiagnosis // 添加切片信息
           for (var i = 0; i < this.slide.tags.length; i++) {
             this.tagStatus[i] = "";
           }
@@ -576,6 +590,87 @@ export default {
       let realX = w1 * (point.x - realOffsetX)
       let realY = w2 * (point.y - realOffsetY)
       return [realOffsetX, realOffsetY, w1, w2, realX, realY]
+    },
+    onResultSubmit () {
+      this.$api.put(this.$api.getBaseURL('v1/slide-comment'), {token: this.$store.state.token}, {diagnosis: this.result, userId: this.$store.state.userId, digitalSlideId: this.id}, res => {
+        this.result = ''
+        this.resultsShow = false
+        this.$message({
+          message: '发送成功',
+          type: 'success'
+        })
+        if (res.code === 4400) {
+          this.$message.error({
+            message: '登录超时'
+          })
+          this.$store.commit('LOGOUT')
+          this.$router.push({ path: '/internal/login' })   
+        }       
+      }, err => { 
+          this.$message.error({
+            message: '发送失败请重试'
+          })
+      })
+    },
+    showResults () {
+      this.resultsShow = !this.resultsShow
+      if (this.resultsShow) {
+        this.getDiagnoseResults()
+      }
+    },
+    getDiagnoseResults () {
+      this.$api.get(this.$api.getBaseURL('v1/'+ this.id +'/slide-comments'), {token: this.$store.state.token}, {
+          "direction": "",
+          "pageSize": 50,
+          "sort": "",
+          "startPage": 0
+      }, res => {
+        if (res.data) {
+          this.resultTableData = res.data.contents
+          if (this.resultTableData.length > 0) {
+            this.hasComments = true
+          } else {
+            this.hasComments = false
+          }
+        }
+        if (res.code === 4400) {
+          this.$message.error({
+            message: '登录超时'
+          })
+        this.$store.commit('LOGOUT')
+        this.$router.push({ path: '/internal/login' })  
+        }
+
+      }, err => {
+        this.$message.error({
+          message: '获取失败'
+        })
+        console.log(err)   
+      })
+    },
+    onInfoUpdate () {
+      this.$api.put(this.$api.getBaseURL('v1/digitalslide'), {token: this.$store.state.token}, {
+        id: this.id,
+        pathologyCaseDto: {
+          age: this.form.age,
+          sex: this.form.sex,
+          clinicalDiagnosis: this.form.clinicalDiagnosis,
+          pathologyClassification: this.form.pathologyClassification,
+          pathologyDiagnosis: this.form.pathologyDiagnosis
+        }
+      }, res => {
+        this.$message({
+          message: '更新成功',
+          type: 'success'
+        })
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500)    
+      }, err => {
+        this.$message.error({
+          message: '更新失败'
+        })  
+      })
     }
   },
   watch: {
@@ -669,4 +764,31 @@ export default {
     background-color: #187fc4;
     color: #ffffff;
   }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: all 0.5s ease;
+  }
+  .fade-enter, .fade-leave-to/* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+  .comment {
+    /* border: 1px solid #dcdfe6; */
+    /* border-radius: 5px; */
+    padding: 0 20px;
+    margin-top: 10px;
+    border-left: 5px solid #fafafa;
+    max-height: 400px;
+    overflow-y: hidden;
+  }
+  .comment:hover {
+    overflow-y: auto;
+  }
+  .comment-container .title {
+    margin-bottom: 20px;
+  }
+  .noComment {
+    border-left: 5px solid #fafafa;
+    padding: 0 20px;
+  }
+
 </style>

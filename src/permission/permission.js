@@ -14,6 +14,8 @@ router.beforeEach((to, from, next) => {
           next()
         }).catch((err) => {
           console.log(err)
+          router.app.$message.error('登录超时')
+          store.commit('SET_UNLOGGED')
           next({ path: '/internal' })
         })
       }
