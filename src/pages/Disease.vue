@@ -31,6 +31,7 @@
         </el-collapse-item>
       </el-collapse>
       <el-table
+        v-loading="tableLoading"
         :data="tableData"
         border
         style="width: 100%"
@@ -325,7 +326,8 @@ export default {
           value: '胃',
           label: '胃'
         }
-      ]
+      ],
+      tableLoading: true
     }
   },
   created () {
@@ -391,11 +393,14 @@ export default {
     loadPathologyCases () {
       this.$api.get(this.$api.getBaseURL('v1/pathology-cases'), null, this.pathologyCaseCondition, r => {
         if (r.code === 200) {
-          console.log(r.data)
           this.pathologyCases = r.data
           this.tableData = this.pathologyCases.contents
           this.total = this.pathologyCases.count
+          this.tableLoading = false
         }
+      }, err => {
+        console.log(err)
+        this.tableLoading = false
       })
     }
     // getClassification () {
