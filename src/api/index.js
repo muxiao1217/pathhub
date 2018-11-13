@@ -92,20 +92,19 @@ export default {
     return 'http://localhost:8282'
   },
   getOssHost: function () {
-    return 'http://wsi.oss-cn-shanghai.aliyuncs.com'
+    return process.env.OSS_URL
   },
   getSignatureHost: function () {
-    return 'http://test.hengdaomed.com/signature'
+    return process.env.BASE_API + '/signature'
   },
   getHEReaderHost: function () {
-    return 'https://test.hengdaomed.com/wsi'
-    // return 'http://192.168.1.188:9999/wsi'
+    return process.env.BASE_API + '/wsi'
   },
   getHEReaderURL: function (url) {
     return this.getHEReaderHost() + url
   },
   getBaseURL: function (url) {
-    return 'https://test.hengdaomed.com/pathhub-end/' + url
+    return process.env.BASE_API + '/pathhub-end/' + url
   }
   // getBaseURL: function (url) {
   //   return 'http://192.168.2.254:8282/pathhub-end/' + url
