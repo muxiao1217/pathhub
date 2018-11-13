@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import seadragon from 'openseadragon'
+import seadragon from 'openseadragon_n'
 import '@/utils/annotations/main.js'
 import Circle from 'circle'
 import Point from 'point'
