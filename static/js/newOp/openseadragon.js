@@ -1,3 +1,4 @@
+/* eslint-disable */
 //! openseadragon 2.3.1
 //! Built on 2017-09-19
 //! Git commit: v2.3.1-0-08414cd
@@ -86,6 +87,7 @@
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+/* eslint-disable */
 
 
 /**
@@ -710,7 +712,7 @@ function OpenSeadragon( options ){
      *
      * @member {Object} OpenSeadragon.version
      * @property {String} versionStr - The version number as a string ('major.minor.revision').
-     * @property {Number} major - The major version number.
+     * @property {Number} major - The major version number.0
      * @property {Number} minor - The minor version number.
      * @property {Number} revision - The revision number.
      * @since 1.0.0
@@ -762,7 +764,6 @@ function OpenSeadragon( options ){
     $.isArray = Array.isArray || function( obj ) {
         return $.type(obj) === "array";
     };
-
 
     /**
      * A crude way of determining if an object is a window.
@@ -4075,7 +4076,7 @@ $.EventSource.prototype = {
 ///////////////////////////////////////////////////////////////////////////////
 // Pointer event model and feature detection
 ///////////////////////////////////////////////////////////////////////////////
-
+    /* eslint-disable */
     $.MouseTracker.captureElement = document;
 
     /**

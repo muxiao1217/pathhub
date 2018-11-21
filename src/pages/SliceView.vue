@@ -81,6 +81,7 @@ export default {
     },
     seaDragon: function () {
       let ossTileUrl = this.$api.getHEReaderHost() + '/v1/kfb'
+      console.log(this.id, this.width, this.height, ossTileUrl)
       seadragon({
         id: 'pic',
         prefixUrl: '/static/',

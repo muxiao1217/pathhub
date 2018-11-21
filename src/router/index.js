@@ -8,6 +8,7 @@ import diseaseDetail from '@/pages/DiseaseDetail'
 import sliceDetail from '@/pages/sliceDetail'
 import annotationDetail from '@/pages/AnnotationDetail'
 import sliceViewer from '@/pages/SliceView'
+import sliceViewrAnnotation from '@/pages/SliceViewAnnotation'
 import internalSlice from '@/pages/internal/InternalSlice'
 import internalSliceView from '@/pages/internal/InternalSliceView'
 import internalLayout from '@/components/internal/LayoutInternal'
@@ -54,6 +55,11 @@ export default new Router({
       name: 'sliceViewer',
       component: sliceViewer
     }, {
+      path: '/sliceViewerAnnotation/:id',
+      name: 'sliceViewerAnnotation',
+      component: sliceViewrAnnotation
+    },
+    {
       path: '/internal/internalSliceView/:id',
       name: 'internalSliceView',
       component: internalSliceView

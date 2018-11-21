@@ -35,6 +35,4 @@ export default {
     margin-bottom: 5px;
     color: #aaaaaa;
   }
-  .comment-root .content {
-  }
 </style>
