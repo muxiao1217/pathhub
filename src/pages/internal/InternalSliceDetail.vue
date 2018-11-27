@@ -331,6 +331,7 @@ export default {
       let startY = -realOffsetY * w1
       let maxWidth = startX + canvasWidth * w1
       let maxHeight = startY + canvasHeight * w1
+      let startTime = new Date().getTime()
       for (let annotation of this.annotations) {
         let lastCircle
         for (let index in annotation) {
@@ -360,11 +361,15 @@ export default {
           lastCircle = circle
         }
       }
+      let endTime = new Date().getTime()
+      debugger
+      console.log(endTime - startTime)
       context.restore()
     },
     // draw strokes of every group annotation
     drawAnnotationStroke: function (_this, realOffsetX, realOffsetY, w1, w2) {
       this.strokes = []
+      let startTime = new Date().getTime()
       for (let annotationIndex in this.annotations) {
         let annotation = this.annotations[annotationIndex]
         let context = _this.annotationCanvas.getContext('2d')
@@ -604,9 +609,9 @@ export default {
             message: '登录超时'
           })
           this.$store.commit('LOGOUT')
-          this.$router.push({ path: '/internal/login' })   
-        }       
-      }, err => { 
+          this.$router.push({ path: '/internal/login' })
+        }
+      }, err => {
           this.$message.error({
             message: '发送失败请重试'
           })
@@ -638,14 +643,14 @@ export default {
             message: '登录超时'
           })
         this.$store.commit('LOGOUT')
-        this.$router.push({ path: '/internal/login' })  
+        this.$router.push({ path: '/internal/login' })
         }
 
       }, err => {
         this.$message.error({
           message: '获取失败'
         })
-        console.log(err)   
+        console.log(err)
       })
     },
     onInfoUpdate () {
@@ -665,11 +670,11 @@ export default {
         })
         setTimeout(() => {
           window.location.reload()
-        }, 1500)    
+        }, 1500)
       }, err => {
         this.$message.error({
           message: '更新失败'
-        })  
+        })
       })
     }
   },

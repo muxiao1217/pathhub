@@ -1,23 +1,23 @@
 <template>
- <div>
-   <div id="pic" :style="containerStyle"></div>
-   <div class="controlDock">
-    <div id="zoominbtn" class="ctrlBtn"></div>
-    <div id="zoomoutbtn" class="ctrlBtn"></div>
-    <div id="home" class="ctrlBtn"></div>
-    <div id="full" class="ctrlBtn"></div>
-    <div id="x1" class="ctrlBtn zoombyx">1X</div>
-    <div id="x2" class="ctrlBtn zoombyx mgtp7">2X</div>
-    <div id="x4" class="ctrlBtn zoombyx mgtp7">4X</div>
-    <div id="x10" class="ctrlBtn zoombyx mgtp7">10X</div>
-    <div id="x20" class="ctrlBtn zoombyx mgtp7">20X</div>
-    <div id="x40" class="ctrlBtn zoombyx mgtp7">40X</div>
+  <div>
+    <div id="pic" :style="containerStyle"></div>
+    <div class="controlDock">
+      <div id="zoominbtn" class="ctrlBtn"></div>
+      <div id="zoomoutbtn" class="ctrlBtn"></div>
+      <div id="home" class="ctrlBtn"></div>
+      <div id="full" class="ctrlBtn"></div>
+      <div id="x1" class="ctrlBtn zoombyx">1X</div>
+      <div id="x2" class="ctrlBtn zoombyx mgtp7">2X</div>
+      <div id="x4" class="ctrlBtn zoombyx mgtp7">4X</div>
+      <div id="x10" class="ctrlBtn zoombyx mgtp7">10X</div>
+      <div id="x20" class="ctrlBtn zoombyx mgtp7">20X</div>
+      <div id="x40" class="ctrlBtn zoombyx mgtp7">40X</div>
 
-   </div>
-   <div class="logo">
-    <img src="@/assets/pathhub_blue.png" alt="">
-   </div>
- </div>
+    </div>
+    <div class="logo">
+      <img src="@/assets/pathhub_blue.png" alt="">
+    </div>
+  </div>
 </template>
 
 <script>
@@ -35,7 +35,11 @@ export default {
       annotations: [],
       constant: {
         LOG_2: Math.log(2)
-      }
+      },
+      lastW1: null,
+      lastW2: null,
+      lastRealOffsetX: null,
+      lastRealOffsetY: null
     }
   },
   computed: {
@@ -91,7 +95,10 @@ export default {
           width: this.width,
           height: this.height,
           tilesUrl: ossTileUrl,
-          updateAnnotationCanvas: this.drawAnnotationCanvas()
+          updateAnnotationCanvas: this.drawAnnotationCanvas(),
+          cal: (bounds, canvas) => {
+            return this.calculateRectOfAnnotations(bounds, canvas)
+          }
         }],
         showNavigator: false,
         navigatorPosition: 'BOTTOM_LEFT',
@@ -129,7 +136,11 @@ export default {
         context.clearRect(0, 0, _this.annotationCanvas.width, _this.annotationCanvas.height)
         const [realOffsetX, realOffsetY, w1] = this.calculateRectOfAnnotations(bounds, context.canvas)
         this.drawAnnotationStroke(_this, realOffsetX, realOffsetY, w1, w1)
-        this.drawAnnotationPoint(context, realOffsetX, realOffsetY, w1, w1, bounds)
+        console.log(w1)
+        if (w1 < 100) {
+          this.drawAnnotationPoint(context, realOffsetX, realOffsetY, w1, w1, bounds)
+        }
+        return [bounds, _this.annotationCanvas]
       }
     },
     calculateRectOfAnnotations: function (bounds, canvas) {
@@ -195,12 +206,12 @@ export default {
           let point = annotation[index]
           let circle = new Circle(Math.round(point.x / w1), Math.round(point.y / w2), 5, point.x, point.y, point, w1)
           if (!((circle.realX >= startX && circle.realX <= maxWidth) &&
-              (circle.realY >= startY && circle.realY <= maxHeight))) {
+            (circle.realY >= startY && circle.realY <= maxHeight))) {
             continue
           }
           if (lastCircle) {
             let distance = Math.sqrt(Math.pow(circle.centerX - lastCircle.centerX, 2) + Math.pow(circle.centerY - lastCircle.centerY, 2))
-            if (distance < 5) {
+            if (distance < 20) {
               continue
             }
           }
@@ -247,38 +258,46 @@ export default {
     border-radius: 10px;
     padding: 5px;
   }
+
   .logo img {
     width: 250px;
   }
+
   .controlDock {
-    position: absolute!important;
+    position: absolute !important;
     top: 50px;
     right: 20px;
     width: 50px;
     /* height: 50px; */
   }
+
   .ctrlBtn {
     width: 50px;
     height: 50px;
     border-radius: 10px;
     background-color: #187fc4;
   }
+
   #zoominbtn {
     background: #187fc4 url('../assets/addition.png') no-repeat;
     background-size: 100%;
   }
+
   #zoomoutbtn {
     background: #187fc4 url('../assets/offline.png') no-repeat;
     background-size: 100%;
   }
+
   #home {
     background: #187fc4 url('../assets/homepage.png') no-repeat;
     background-size: 100%;
   }
+
   #full {
     background: #187fc4 url('../assets/fullscreen.png') no-repeat;
     background-size: 100%;
   }
+
   .zoombyx {
     text-align: center;
     color: #fff;
@@ -286,6 +305,7 @@ export default {
     font-weight: 800;
     line-height: 2;
   }
+
   .mgtp7 {
     margin-top: 7px;
   }
