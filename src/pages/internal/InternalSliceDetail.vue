@@ -331,7 +331,6 @@ export default {
       let startY = -realOffsetY * w1
       let maxWidth = startX + canvasWidth * w1
       let maxHeight = startY + canvasHeight * w1
-      let startTime = new Date().getTime()
       for (let annotation of this.annotations) {
         let lastCircle
         for (let index in annotation) {
@@ -361,9 +360,6 @@ export default {
           lastCircle = circle
         }
       }
-      let endTime = new Date().getTime()
-      debugger
-      console.log(endTime - startTime)
       context.restore()
     },
     // draw strokes of every group annotation
